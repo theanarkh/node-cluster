@@ -1,2 +1,2 @@
 # node-cluster
-实现自己的cluster模块，支持nodejs多进程的服务器架构。目前支持轮询和共享模式。
+实现自己的cluster模块，支持nodejs多进程的服务器架构。目前支持轮询和共享模式。会持续维护。nodejs的cluster也支持两种模式，但是分发策略是无状态的，不能根据进程当前负载来作分发，比如nginx多个进程accept的时候，会加锁。实现自己的cluster，可以定制化分发策略。
