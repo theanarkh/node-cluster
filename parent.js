@@ -1,18 +1,11 @@
 const childProcess = require('child_process');
 const net = require('net');
 const workers = [];
-const workerNum = 1;
+const workerNum = 10	;
+const handle = net._createServerHandle('127.0.0.1', 11111, 4);
 
 for (let i = 0; i < workerNum; i++) {
-	workers.push(childProcess.fork('child.js', {env: {index: i}}));
-}
-
-const server = net.createServer((client) => {
-	for (let i = 0; i < workerNum; i++) {
-		workers[~~(Math.random() * workerNum)].send(null, client);
-	}
-});
-server.listen(11111);
-for (let i = 0; i < workerNum; i++) {
-	workers[~~(Math.random() * workerNum)].send(null, server);
+	const worker = childProcess.fork('child.js', {env: {index: i}});
+	workers.push(worker);
+	worker.send(null ,handle);
 }
