@@ -9,4 +9,5 @@ for (let i = 0; i < workerNum; i++) {
 	workers.push(worker);
 	worker.send(null ,handle);
 }
+// 防止文件描述符泄漏
 handle.close();
