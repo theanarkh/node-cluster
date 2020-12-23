@@ -9,5 +9,5 @@ for (let i = 0; i < workerNum; i++) {
 	workers.push(worker);
 	worker.send(null ,handle);
 }
-// 防止文件描述符泄漏
+// 防止文件描述符泄漏，不过如果子进程挂了，主进程再fork的时候，主进程就无法再传递该文件描述符了
 handle.close();
